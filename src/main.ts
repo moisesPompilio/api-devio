@@ -1,3 +1,4 @@
+import * as cors from 'cors';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
@@ -7,6 +8,7 @@ import { swaggerConfig } from './config/swagger/index.swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.use(cors());
   // Pipes
   app.useGlobalPipes(
     new ValidationPipe({
