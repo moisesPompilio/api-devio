@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ExtraService } from './extra.service';
-import { ExtraController } from './extra.controller';
+import { PrismaModule } from 'src/config/prisma/prisma.module';
+import { ExtraService } from './aplication/service/extra.service';
+import { ExtraController } from './adapter/http/rest/extra.controller';
+import { ExtraRepository } from './adapter/repository/extra.repository';
 
 @Module({
   controllers: [ExtraController],
-  providers: [ExtraService]
+  providers: [ExtraService, ExtraRepository],
+  imports: [PrismaModule],
 })
 export class ExtraModule {}

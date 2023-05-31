@@ -1,4 +1,3 @@
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -9,10 +8,41 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-
+  id       String @id @default(uuid())
   email    String @unique
   password String
+  name     String
+  role     String
+}
 
-  name String
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  image    String
+  products Product[]
+
+  @@map("product")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String
+  extras      Extra[]  @relation("ProductExtra")
+  image       String
+  code        String
+
+  @@map("category")
+}
+
+model Extra {
+  id          String    @id @default(uuid())
+  name        String
+  price       Float
+  image       String
+  description String
+  products    Product[] @relation("ProductExtra")
 }

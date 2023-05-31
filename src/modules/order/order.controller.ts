@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
+@ApiBearerAuth()
+@ApiTags('order')
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
