@@ -79,7 +79,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Clone this project
-$ git clone https://github.com/moisespompilio/api-devio
+$ git clone https://github.com/moisesPompilio/api-devio.git
 
 # Access
 $ cd api-devio
