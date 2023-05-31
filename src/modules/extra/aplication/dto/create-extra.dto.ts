@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUrl, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateExtraDto {
@@ -15,6 +15,8 @@ export class CreateExtraDto {
     example: 10.9,
     minimum: 0,
   })
+  @IsNumber()
+  @Min(0)
   price: number;
 
   @ApiProperty({

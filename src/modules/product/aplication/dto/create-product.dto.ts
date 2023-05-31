@@ -20,7 +20,7 @@ export class CreateProductDto {
 
   @ApiProperty({
     description: 'price of the product',
-    example: 'x-hambúrguer com queijo',
+    example: 25.9,
     minimum: 0,
   })
   @IsNotEmpty()

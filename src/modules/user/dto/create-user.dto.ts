@@ -7,13 +7,12 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../entities/user.entity';
 
 enum Role {
   FUNCIONARIO = 'FUNCIONARIO',
   USUARIO = 'USUARIO',
 }
-export class CreateUserDto extends User {
+export class CreateUserDto {
   @ApiProperty({
     description: 'user email. it is needed to login',
     example: 'example@example.com',
@@ -44,7 +43,7 @@ export class CreateUserDto extends User {
   @ApiProperty({
     description:
       'role of the user, to identify if he is an "FUNCIONARIO" or "USUARIO"',
-    example: 'example',
+    example: 'USUARIO',
   })
   @IsString()
   @IsEnum(Role)
