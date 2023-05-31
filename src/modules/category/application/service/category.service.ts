@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from '../dto/create-category.dto';
-import { UpdateCategoryDto } from '../dto/update-category.dto';
+import { CategoryRepository } from '../../adapter/repository/category.repository';
+import { CreateCategoryUsecase } from '../../domain/usecase/create-category.usecase';
+import { Category } from '../../domain/entities/category.entity';
+import { GetAllCategoryUsecase } from '../../domain/usecase/get-all-category.usecase';
+import { UpdateByIdCategoryUsecase } from '../../domain/usecase/update-category.usecase';
+import { DeleteCategoryUseCse } from '../../domain/usecase/delete-category.usecase';
 
 @Injectable()
 export class CategoryService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  constructor(private readonly categoryRepository: CategoryRepository) {}
+
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const createCategoryUsecase = new CreateCategoryUsecase(
+      this.categoryRepository,
+    );
+    const category = await createCategoryUsecase.handle(createCategoryDto);
+    return category;
   }
 
-  findAll() {
-    return `This action returns all category`;
+  getAll() {
+    const getAllCategoryUsecase = new GetAllCategoryUsecase(
+      this.categoryRepository,
+    );
+    const categories = getAllCategoryUsecase.handle();
+    return categories;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async update(id: string, updateCategoryDto: CreateCategoryDto) {
+    const updateCategoryUsecase = new UpdateByIdCategoryUsecase(
+      this.categoryRepository,
+    );
+    await updateCategoryUsecase.handle(updateCategoryDto, id);
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async delete(id: string) {
+    const deleteCategoryUseCse = new DeleteCategoryUseCse(
+      this.categoryRepository,
+    );
+    await deleteCategoryUseCse.handle(id);
   }
 }
